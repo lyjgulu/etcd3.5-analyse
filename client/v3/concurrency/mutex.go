@@ -30,12 +30,12 @@ var ErrSessionExpired = errors.New("mutex: session is expired")
 
 // Mutex implements the sync Locker interface with etcd
 type Mutex struct {
-	s *Session
+	s *Session //相关联的Session
 
-	pfx   string
-	myKey string
-	myRev int64
-	hdr   *pb.ResponseHeader
+	pfx   string             //锁的前缀
+	myKey string             //当前持有的key
+	myRev int64              //当前持有的key的revision
+	hdr   *pb.ResponseHeader //最新返回结果的Header
 }
 
 func NewMutex(s *Session, pfx string) *Mutex {
